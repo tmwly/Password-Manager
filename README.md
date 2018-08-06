@@ -1,1 +1,1 @@
-Password Manager 2
+password-manager
