@@ -29,7 +29,9 @@ public class Client {
 		return passwords.getTotalPasswords();
 	}
 	
-	
+
+
+
 	public void addPassword(String name, String site, String password, String notes) {
 		try {
 			if(!key.isEmpty()) {
