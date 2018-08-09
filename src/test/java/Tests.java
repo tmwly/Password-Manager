@@ -1,8 +1,10 @@
+import database.DatabaseHandler;
 import org.junit.Test;
 
 import generators.PasswordGenerator;
 import password.Encryptor;
 import client.Client;
+import password.Password;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -68,10 +70,7 @@ public class Tests {
 		Client c = new Client();
 		c.setKey("Please work.");
 		c.addPassword("google", "tings", "yee", "nout");
-
 		c.addPassword("twitter", "oijoijo", "fan", "toid");
-		
-
 		c.addPassword("facebook", "bigtiddy", "youknowit", "");
 		assertEquals(c.getTotalPasswords(), 3);
 	}
@@ -79,12 +78,11 @@ public class Tests {
 	
 	
 	//TODO write this test in a way that actually tests shit
-//	public void SearchForNonExistentKey() {
-//		Client c = new Client();
-//	c.getPassword("fart");
-//		
-//		
-//	}
+	@Test(expected = NullPointerException.class)
+	public void SearchForNonExistentKey() {
+		Client c = new Client();
+		c.getPassword("fart");
+	}
 	
 	
 	
@@ -101,5 +99,21 @@ public class Tests {
 				
 	}
 	
-	
+
+
+
+	@Test
+	public void WriteToJson(){
+		Password p = new Password("this","is","a", "test");
+		DatabaseHandler database = DatabaseHandler.loadDB();
+		database.AddPassword(p);
+		database.close();
+		database = DatabaseHandler.loadDB();
+		int i = database.getTotalPasswords();
+		database.deletePassword(p);
+		assertEquals(1, i);
+
+
+	}
+
 }

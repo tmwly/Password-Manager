@@ -2,32 +2,39 @@ package database;
 
 //TODO make this work with a db
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import password.Password;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class DatabaseHandler implements DatabaseInterface{
-	private DatabaseHashMap database;
-    private static final File file = new File("storage.boob");
+	private ArrayList<Password> passwords = new ArrayList<>();
+    private static final File file = new File("storage.json");
 
 
 	public DatabaseHandler() {
-		loadDB();
+
 		if(!file.exists()) {
 
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                //TODO error handlin
-            }
+	        writeDB();
+
         }
 	}
-	
+
+	public ArrayList<Password> getPasswords() {
+		return passwords;
+	}
+
+	public void setPasswords(ArrayList<Password> passwords) {
+		this.passwords = passwords;
+	}
 
 	public void close() {
+
 		writeDB();
+		passwords = new ArrayList<>();
 	}
 
 
@@ -40,25 +47,25 @@ public class DatabaseHandler implements DatabaseInterface{
             e.printStackTrace();
         }
 
-
-
 	}
 
 
-	@Override
-	public void loadDB() {
-		try{
-			FileInputStream fin = new FileInputStream("storage.ser");
-			ObjectInputStream ois = new ObjectInputStream(fin);
-			database = (DatabaseHashMap) ois.readObject();
-		} catch(FileNotFoundException e) {
-			//TODO write error handling
-		} catch (ClassNotFoundException e) {
-			//TODO write error handling
-		} catch (IOException e ) {
-			//TODO write error handling
-		}
 
+	public static DatabaseHandler loadDB() {
+		try{
+			if(file.exists()) {
+
+				return  new ObjectMapper().readValue(file, DatabaseHandler.class);
+			} else {
+				return new DatabaseHandler();
+			}
+
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}  catch (IOException e ) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 
@@ -66,24 +73,33 @@ public class DatabaseHandler implements DatabaseInterface{
 
 	
 	@Override
-	public Password getPassword(String name) {
+	public Password getPasswordFromName(String name) {
 		
-		return database.GetPassword(name);
+		for(Password p: passwords){
+			String s = p.getName();
+			if(name.equals(s)) {
+				return p;
+			}
+		}
+		return null;
 	}
 
 	@Override
 	public void AddPassword(Password p) {
-		database.AddPassword(p);
-		
-		//TODO check for concurrency
-	
+		if(passwords.stream().noneMatch(password -> p.getName().equals(password.getName()))) {
+			passwords.add(p);
+		}
 	}
-	
-	public int getTotalPasswords() {
-		return database.getTotalValues();
-	}
-	
-	
 
+	@JsonIgnore
+	public int getTotalPasswords() {
+		return passwords.size();
+	}
+	
+	
+	public void deletePassword(Password p){
+		passwords.remove(p);
+		writeDB();
+	}
 
 }

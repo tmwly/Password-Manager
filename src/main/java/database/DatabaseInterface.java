@@ -5,8 +5,8 @@ import password.Password;
 public interface DatabaseInterface {
 	public void AddPassword(Password p);
 	
-	public Password getPassword(String name);
+	public Password getPasswordFromName(String name);
 
-	public void loadDB();
+	//public void loadDB();
 }
 

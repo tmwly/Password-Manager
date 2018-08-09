@@ -1,6 +1,7 @@
 package password;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Password implements Serializable {
 	
@@ -19,7 +20,10 @@ public class Password implements Serializable {
 		this.name = name;
 		this.notes = notes;
 	}
-	
+
+	public Password() {
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -65,14 +69,25 @@ public class Password implements Serializable {
 	}
 	
 	public String toString() {
-		String s = "";
-		s += "Name: " + name;
-		s += "\nSite: " + site;
-		s += "\nPassword: " + password;
-		s += "\nNotes: " + notes;
-		s += "\n";
-		
-		return s;
+
+		return name;
 	}
-	
+
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(password, site, name, notes);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Password password1 = (Password) o;
+		return Objects.equals(password, password1.password) &&
+				Objects.equals(site, password1.site) &&
+				Objects.equals(name, password1.name) &&
+				Objects.equals(notes, password1.notes);
+	}
 }
