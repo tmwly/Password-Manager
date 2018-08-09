@@ -13,12 +13,14 @@ public class Password implements Serializable {
 	private String site;
 	private String name;
 	private String notes;
+	private Boolean encrypted;
 
 	public Password(String name, String site, String password, String notes) {
 		this.password = password;
 		this.site = site;
 		this.name = name;
 		this.notes = notes;
+		encrypted = false;
 	}
 
 	public Password() {
@@ -55,17 +57,23 @@ public class Password implements Serializable {
 	public void setNotes(String s) {
 		notes = s;
 	}
-	
+
+	public Boolean getEncrypted() {
+		return encrypted;
+	}
+
 	public void decrypt(String key) {
 		site = Encryptor.decrypt(site, key);
 		password = Encryptor.decrypt(password, key);
 		notes = Encryptor.decrypt(notes, key);
+		encrypted = false;
 	}
 	
 	public void encrypt(String key) {
 		site = Encryptor.encrypt(site, key);
 		password = Encryptor.encrypt(password, key);
 		notes = Encryptor.encrypt(notes, key);
+		encrypted = true;
 	}
 	
 	public String toString() {

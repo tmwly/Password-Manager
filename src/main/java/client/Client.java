@@ -11,12 +11,18 @@ public class Client {
 	private DatabaseHandler passwords = DatabaseHandler.loadDB();
 	private String key;
 	private ObservableList<Password> observableList;
-	
-	
+
+	public Client() {
+		key = "";
+	}
+
 	public void setKey(String key) {
 		this.key = key;
 	}
-	
+
+	public String getKey() {
+		return key;
+	}
 
 	public Password getPassword(String name) throws NullPointerException {
 		try {
