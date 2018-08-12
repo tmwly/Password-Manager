@@ -33,12 +33,13 @@ public class Window extends Application {
             e.printStackTrace();
         }
         Scene scene = new Scene(parent);
+
         Client client = new Client();
-        client.setKey("thisisakey");
-        client.addPassword("hello","this","is","password");
-        client.addPassword("google", "tings", "yee", "nout");
-        client.addPassword("twitter", "oijoijo", "fan", "toid");
-        client.addPassword("facebook", "bigtiddy", "youknowit", "");
+//        client.setKey("thisisakey");
+//        client.addPassword("hello","this","is","password");
+//        client.addPassword("google", "tings", "yee", "nout");
+//        client.addPassword("twitter", "oijoijo", "fan", "toid");
+//        client.addPassword("facebook", "bigtiddy", "youknowit", "");
         MainController controller = loader.getController();
         controller.setClient(client);
         controller.setPrimaryStage(primaryStage);
@@ -46,5 +47,9 @@ public class Window extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+
+
     };
 }

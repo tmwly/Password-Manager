@@ -1,19 +1,22 @@
 package client;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import database.DatabaseHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import password.Password;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class Client {
 	
-	private DatabaseHandler passwords = DatabaseHandler.loadDB();
+	private DatabaseHandler passwords;
 	private String key;
 	private ObservableList<Password> observableList;
 
-	public Client() {
+	public Client(){
 		key = "";
+		passwords = new DatabaseHandler();
 	}
 
 	public void setKey(String key) {
@@ -35,7 +38,11 @@ public class Client {
 		}
 		return null;
 	}
-	
+
+	public void setDatabase(String location) throws MismatchedInputException {
+		passwords.setDatabase(location);
+		System.out.println("Client");
+	}
 	public int getTotalPasswords() {
 		return passwords.getTotalPasswords();
 	}

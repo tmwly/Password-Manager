@@ -4,6 +4,7 @@ package database;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import password.Password;
 
 import java.io.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 public class DatabaseHandler implements DatabaseInterface{
 	private ArrayList<Password> passwords = new ArrayList<>();
-    private static final File file = new File("storage.json");
+    private static File file = new File("storage.json");
 
 
 	public DatabaseHandler() {
@@ -51,11 +52,13 @@ public class DatabaseHandler implements DatabaseInterface{
 
 
 
-	public static DatabaseHandler loadDB() {
+	public static DatabaseHandler loadDB() throws MismatchedInputException{
 		try{
 			if(file.exists()) {
+				DatabaseHandler d = new ObjectMapper().readValue(file, DatabaseHandler.class);
 
-				return  new ObjectMapper().readValue(file, DatabaseHandler.class);
+
+				return d ;
 			} else {
 				return new DatabaseHandler();
 			}
@@ -102,4 +105,9 @@ public class DatabaseHandler implements DatabaseInterface{
 		writeDB();
 	}
 
+    public void setDatabase(String location) throws MismatchedInputException {
+		file = new File(location);
+		loadDB();
+		System.out.println("Database");
+	}
 }

@@ -101,19 +101,18 @@ public class Tests {
 	
 
 
-
-	@Test
-	public void WriteToJson(){
-		Password p = new Password("this","is","a", "test");
-		DatabaseHandler database = DatabaseHandler.loadDB();
-		database.AddPassword(p);
-		database.close();
-		database = DatabaseHandler.loadDB();
-		int i = database.getTotalPasswords();
-		database.deletePassword(p);
-		assertEquals(1, i);
-
-
-	}
+//
+//	@Test
+//	public void WriteToJson(){
+//		Password p = new Password("this","is","a", "test");
+//		DatabaseHandler database = DatabaseHandler.loadDB();
+//		database.AddPassword(p);
+//		database.close();
+//		database = DatabaseHandler.loadDB();
+//		int i = database.getTotalPasswords();
+//		database.deletePassword(p);
+//		assertEquals(1, i);
+//
+//	}
 
 }
