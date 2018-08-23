@@ -63,17 +63,22 @@ public class Password implements Serializable {
 	}
 
 	public void decrypt(String key) {
-		site = Encryptor.decrypt(site, key);
-		password = Encryptor.decrypt(password, key);
-		notes = Encryptor.decrypt(notes, key);
-		encrypted = false;
+		if(encrypted) {
+			site = Encryptor.decrypt(site, key);
+			password = Encryptor.decrypt(password, key);
+			notes = Encryptor.decrypt(notes, key);
+			encrypted = false;
+		}
+
 	}
 	
 	public void encrypt(String key) {
-		site = Encryptor.encrypt(site, key);
-		password = Encryptor.encrypt(password, key);
-		notes = Encryptor.encrypt(notes, key);
-		encrypted = true;
+		if(!encrypted) {
+			site = Encryptor.encrypt(site, key);
+			password = Encryptor.encrypt(password, key);
+			notes = Encryptor.encrypt(notes, key);
+			encrypted = true;
+		}
 	}
 	
 	public String toString() {

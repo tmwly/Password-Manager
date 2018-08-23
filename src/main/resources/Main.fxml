@@ -17,12 +17,11 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Settings">
-            <items>
-              <MenuItem fx:id="changePassMenuItem" mnemonicParsing="false" text="Change Master Pass" />
+          <Menu mnemonicParsing="false" text="General">
+               <items>
                   <MenuItem fx:id="changeDatabaseMenuItem" mnemonicParsing="false" text="Change Database" />
-            </items>
-          </Menu>
+                  <MenuItem fx:id="changePassMenuItem" mnemonicParsing="false" text="Change Key" />
+               </items></Menu>
         </menus>
       </MenuBar>
    </top>
@@ -81,6 +80,7 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
           <Button fx:id="editButton" mnemonicParsing="false" text="Edit" />
+            <Button fx:id="newPasswordButton" mnemonicParsing="false" text="New Password" />
         </items>
       </ToolBar>
    </bottom>

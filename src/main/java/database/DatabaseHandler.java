@@ -40,7 +40,7 @@ public class DatabaseHandler implements DatabaseInterface{
 
 
 
-	private void writeDB() {
+	public void writeDB() {
 
         try {
             new ObjectMapper().writeValue(file, this);
@@ -51,16 +51,12 @@ public class DatabaseHandler implements DatabaseInterface{
 	}
 
 
-
-	public static DatabaseHandler loadDB() throws MismatchedInputException{
+	public void loadDB() throws MismatchedInputException{
 		try{
 			if(file.exists()) {
 				DatabaseHandler d = new ObjectMapper().readValue(file, DatabaseHandler.class);
+				passwords = d.getPasswords();
 
-
-				return d ;
-			} else {
-				return new DatabaseHandler();
 			}
 
 		} catch(FileNotFoundException e) {
@@ -68,7 +64,7 @@ public class DatabaseHandler implements DatabaseInterface{
 		}  catch (IOException e ) {
 			e.printStackTrace();
 		}
-		return null;
+
 	}
 
 
@@ -107,7 +103,30 @@ public class DatabaseHandler implements DatabaseInterface{
 
     public void setDatabase(String location) throws MismatchedInputException {
 		file = new File(location);
+		System.out.println(location);
 		loadDB();
-		System.out.println("Database");
+
+
 	}
+
+	public void decryptAll(String key) {
+
+		for(int i = 0; i < passwords.size(); i++) {
+			Password p = passwords.get(i);
+			p.decrypt(key);
+			passwords.set(i, p);
+		}
+	}
+	public void encryptAll(String newKey) {
+		for(int i = 0; i < passwords.size(); i++) {
+			Password p = passwords.get(i);
+			p.encrypt(newKey);
+			passwords.set(i, p);
+		}
+	}
+
+	public String toString(){
+		return passwords.toString();
+	}
+
 }

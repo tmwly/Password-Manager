@@ -2,12 +2,11 @@ package Controllers;
 
 import client.Client;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import password.Password;
 
@@ -35,6 +34,9 @@ public class MainController implements Initializable {
     Button editButton;
 
     @FXML
+    Button newPasswordButton;
+
+    @FXML
     MenuItem changePassMenuItem;
 
     @FXML
@@ -60,6 +62,11 @@ public class MainController implements Initializable {
         changeDatabaseMenuItem.setOnAction(event -> {
             setDatabase();
         });
+
+        newPasswordButton.setOnAction(event -> {
+            newPassword();
+        });
+
     }
 
     private void setDatabase() {
@@ -79,16 +86,13 @@ public class MainController implements Initializable {
             System.out.println(s);
             try {
                 client.setDatabase(s);
+                updateObservableList();
 
             } catch(MismatchedInputException e) {
                 //TODO error this
                 System.out.println("fucked it");
             }
-
-
         }
-
-
     }
 
 
@@ -107,6 +111,10 @@ public class MainController implements Initializable {
         passwordListView.setItems(client.getObservableList());
     }
 
+    public void updateObservableList() {
+        passwordListView.setItems(client.refreshObservableList());
+    }
+
     public void setLabels(Password p) {
         p.decrypt(client.getKey());
         currentNameLabel.setText(p.getName());
@@ -118,8 +126,27 @@ public class MainController implements Initializable {
     public void setPassword(){
         Stage stage = new Stage();
         stage.initOwner(primaryStage);
-        PasswordChangerController.show(stage, client);
+        stage.initModality(Modality.WINDOW_MODAL);
+        KeyChangerController.show(stage, client);
 
+
+    }
+
+
+    public void newPassword(){
+        if(!client.getKey().equals("")) {
+
+            Stage stage = new Stage();
+            stage.initOwner(primaryStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            NewPasswordController.show(stage, client);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setContentText("Please set a key before adding a new password");
+
+            alert.showAndWait();
+        }
 
     }
 

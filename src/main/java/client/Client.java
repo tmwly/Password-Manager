@@ -41,25 +41,30 @@ public class Client {
 
 	public void setDatabase(String location) throws MismatchedInputException {
 		passwords.setDatabase(location);
-		System.out.println("Client");
+		System.out.println(passwords.toString());
+
 	}
+
+
 	public int getTotalPasswords() {
-		return passwords.getTotalPasswords();
+		return getObservableList().size();
 	}
 
 
 	public void deletePassword(Password p) {
-		passwords.deletePassword(p);
+		getObservableList().remove(p);
 	}
 
 
 
 	public void addPassword(String name, String site, String password, String notes) {
+
 		try {
 			if(!key.isEmpty()) {
 				Password p = new Password(name, site, password, notes);
 				p.encrypt(key);
-				passwords.AddPassword(p);
+				getObservableList().add(p);
+				passwords.writeDB();
 			}
 			
 		} catch(NullPointerException e) {
@@ -73,5 +78,18 @@ public class Client {
 			observableList = FXCollections.observableList(passwords.getPasswords());
 		}
 		return observableList;
+	}
+
+	public ObservableList<Password> refreshObservableList() {
+
+		return observableList = FXCollections.observableList(passwords.getPasswords());
+
+	}
+
+
+	public void changePassword(String newKey) {
+		passwords.decryptAll(key);
+		passwords.encryptAll(newKey);
+		key = newKey;
 	}
 }
