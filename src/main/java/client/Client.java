@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import password.Password;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -41,8 +42,10 @@ public class Client {
 
 	public void setDatabase(String location) throws MismatchedInputException {
 		passwords.setDatabase(location);
-		System.out.println(passwords.toString());
+	}
 
+	public DatabaseHandler getDatabase(){
+		return passwords;
 	}
 
 
@@ -58,8 +61,9 @@ public class Client {
 
 
 	public void addPassword(String name, String site, String password, String notes) {
-
+		//todo add error checking for identical names?
 		try {
+			//Check whether master key is present
 			if(!key.isEmpty()) {
 				Password p = new Password(name, site, password, notes);
 				p.encrypt(key);
@@ -87,9 +91,19 @@ public class Client {
 	}
 
 
-	public void changePassword(String newKey) {
+	public void changeKey(String newKey) {
 		passwords.decryptAll(key);
 		passwords.encryptAll(newKey);
 		key = newKey;
+	}
+
+	public void createDatabase(File file) throws MismatchedInputException{
+		passwords.createDatabase(file);
+	}
+
+	public void overwritePassword(Password oldPass, Password newPass) {
+		deletePassword(oldPass);
+		addPassword(newPass.getName(), newPass.getSite(), newPass.getPassword(), newPass.getNotes());
+
 	}
 }

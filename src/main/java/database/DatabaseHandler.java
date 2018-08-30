@@ -1,8 +1,8 @@
 package database;
 
-//TODO make this work with a db
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import password.Password;
@@ -10,18 +10,17 @@ import password.Password;
 import java.io.*;
 import java.util.ArrayList;
 
+
+@JsonIgnoreProperties(value = {"file"})
+
 public class DatabaseHandler implements DatabaseInterface{
 	private ArrayList<Password> passwords = new ArrayList<>();
-    private static File file = new File("storage.json");
+
+
+    private static File file;
 
 
 	public DatabaseHandler() {
-
-		if(!file.exists()) {
-
-	        writeDB();
-
-        }
 	}
 
 	public ArrayList<Password> getPasswords() {
@@ -38,12 +37,24 @@ public class DatabaseHandler implements DatabaseInterface{
 		passwords = new ArrayList<>();
 	}
 
-
+	public File getFile(){
+		return file;
+	}
 
 	public void writeDB() {
 
+		try {
+			new ObjectMapper().writeValue(file, this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void writeDB(File f) {
+
         try {
-            new ObjectMapper().writeValue(file, this);
+            new ObjectMapper().writeValue(f, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,4 +140,8 @@ public class DatabaseHandler implements DatabaseInterface{
 		return passwords.toString();
 	}
 
+	public void createDatabase(File f) throws MismatchedInputException {
+		writeDB(f);
+		setDatabase(f.getAbsolutePath());
+	}
 }

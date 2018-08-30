@@ -89,7 +89,7 @@ public class KeyChangerController implements Initializable {
             String newKey2 = repeatNewPasswordTextField.getText();
 
             if (newKey.equals(newKey2)){
-                client.changePassword(newKey);
+                client.changeKey(newKey);
                 stage.close();
             } else {
                 keyChangeErrorLabel.setText("Please ensure the two passwords match");

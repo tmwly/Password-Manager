@@ -19,9 +19,14 @@
         <menus>
           <Menu mnemonicParsing="false" text="General">
                <items>
-                  <MenuItem fx:id="changeDatabaseMenuItem" mnemonicParsing="false" text="Change Database" />
                   <MenuItem fx:id="changePassMenuItem" mnemonicParsing="false" text="Change Key" />
                </items></Menu>
+            <Menu mnemonicParsing="false" text="Database">
+               <items>
+                  <MenuItem fx:id="createDatabaseMenuItem" mnemonicParsing="false" text="Create Database" />
+                  <MenuItem fx:id="changeDatabaseMenuItem" mnemonicParsing="false" text="Change Database" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>
@@ -79,7 +84,7 @@
    <bottom>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button fx:id="editButton" mnemonicParsing="false" text="Edit" />
+          <Button fx:id="editPasswordButton" mnemonicParsing="false" text="Edit" />
             <Button fx:id="newPasswordButton" mnemonicParsing="false" text="New Password" />
         </items>
       </ToolBar>

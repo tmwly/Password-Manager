@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -17,6 +18,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     private Client client;
+    private Password currentPassword;
 
     @FXML
     ListView<Password> passwordListView;
@@ -42,6 +44,12 @@ public class MainController implements Initializable {
     @FXML
     MenuItem changeDatabaseMenuItem;
 
+    @FXML
+    MenuItem createDatabaseMenuItem;
+
+    @FXML
+    Button editPasswordButton;
+
     Stage primaryStage;
 
     @Override
@@ -52,6 +60,7 @@ public class MainController implements Initializable {
 
                 oldValue.encrypt(client.getKey());
             }
+            currentPassword = newValue;
             setLabels(newValue);
 
         });
@@ -60,16 +69,48 @@ public class MainController implements Initializable {
         });
 
         changeDatabaseMenuItem.setOnAction(event -> {
-            setDatabase();
+            changeDatabase();
+        });
+
+        createDatabaseMenuItem.setOnAction(event -> {
+            createDatabase();
         });
 
         newPasswordButton.setOnAction(event -> {
             newPassword();
         });
 
+        editPasswordButton.setOnAction(event -> {
+            editPassword();
+        });
+
+
+
     }
 
-    private void setDatabase() {
+    private void createDatabase(){
+        Stage stage = new Stage();
+        stage.initOwner(primaryStage);
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Create database json file");
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Json files", "*.json" ) ;
+        fileChooser.getExtensionFilters().add(extensionFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+        try {
+            client.createDatabase(file);
+        } catch(MismatchedInputException e) {
+            System.out.println("FUcked it");
+        }
+
+        updateObservableList();
+
+        System.out.println(file.getAbsolutePath());
+
+    }
+
+    private void changeDatabase() {
         Stage stage = new Stage();
         stage.initOwner(primaryStage);
         
@@ -78,6 +119,7 @@ public class MainController implements Initializable {
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Json files", "*.json" ) ;
         fileChooser.getExtensionFilters().add(extensionFilter);
         //fileChooser.showOpenDialog(stage);
+
 
         File file = fileChooser.showOpenDialog(stage);
 
@@ -128,26 +170,58 @@ public class MainController implements Initializable {
         stage.initOwner(primaryStage);
         stage.initModality(Modality.WINDOW_MODAL);
         KeyChangerController.show(stage, client);
+    }
+
+    public void editPassword(){
+
+        if(!(currentPassword == null)) {
+
+            Stage stage = new Stage();
+            stage.initOwner(primaryStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+            EditPasswordController.show(stage, client, currentPassword);
+        }
 
 
     }
 
 
-    public void newPassword(){
-        if(!client.getKey().equals("")) {
 
+
+
+    public void newPassword(){
+        Boolean setFile = true;
+        try {
+            String location = client.getDatabase().getFile().getAbsolutePath();
+        } catch(NullPointerException e) {
+            setFile = false;
+        }
+        String key = client.getKey();
+
+        System.out.println(setFile);
+
+        if(key.equals("") && !setFile) {
+            showErrorDialog("Error", "Please set a key and Database before adding a new password");
+        } else if(key.equals("")) {
+            showErrorDialog("Error", "Please set a key before adding a new password");
+        } else if(!setFile) {
+            showErrorDialog("Error", "Please set a database before adding a new password");
+        } else {
             Stage stage = new Stage();
             stage.initOwner(primaryStage);
             stage.initModality(Modality.WINDOW_MODAL);
             NewPasswordController.show(stage, client);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Error");
-            alert.setContentText("Please set a key before adding a new password");
-
-            alert.showAndWait();
         }
 
+
+    }
+
+    private void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setContentText(message);
+
+        alert.showAndWait();
     }
 
     public void setPrimaryStage(Stage primaryStage) {
