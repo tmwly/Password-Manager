@@ -67,7 +67,6 @@ public class DatabaseHandler implements DatabaseInterface{
 			if(file.exists()) {
 				DatabaseHandler d = new ObjectMapper().readValue(file, DatabaseHandler.class);
 				passwords = d.getPasswords();
-
 			}
 
 		} catch(FileNotFoundException e) {
@@ -78,10 +77,6 @@ public class DatabaseHandler implements DatabaseInterface{
 
 	}
 
-
-
-
-	
 	@Override
 	public Password getPasswordFromName(String name) {
 		
@@ -101,20 +96,9 @@ public class DatabaseHandler implements DatabaseInterface{
 		}
 	}
 
-	@JsonIgnore
-	public int getTotalPasswords() {
-		return passwords.size();
-	}
-	
-	
-	public void deletePassword(Password p){
-		passwords.remove(p);
-		writeDB();
-	}
 
     public void setDatabase(String location) throws MismatchedInputException {
 		file = new File(location);
-		System.out.println(location);
 		loadDB();
 
 
@@ -141,6 +125,7 @@ public class DatabaseHandler implements DatabaseInterface{
 	}
 
 	public void createDatabase(File f) throws MismatchedInputException {
+		passwords = new ArrayList<Password>();
 		writeDB(f);
 		setDatabase(f.getAbsolutePath());
 	}

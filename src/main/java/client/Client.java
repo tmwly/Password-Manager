@@ -56,6 +56,7 @@ public class Client {
 
 	public void deletePassword(Password p) {
 		getObservableList().remove(p);
+		passwords.writeDB();
 	}
 
 
@@ -91,7 +92,7 @@ public class Client {
 	}
 
 
-	public void changeKey(String newKey) {
+	public void changeDatabaseKey(String newKey) {
 		passwords.decryptAll(key);
 		passwords.encryptAll(newKey);
 		key = newKey;
@@ -105,5 +106,10 @@ public class Client {
 		deletePassword(oldPass);
 		addPassword(newPass.getName(), newPass.getSite(), newPass.getPassword(), newPass.getNotes());
 
+	}
+
+	public void changeClientKey(String newKey) {
+		passwords.encryptAll(key);
+		key = newKey;
 	}
 }

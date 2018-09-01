@@ -1,7 +1,12 @@
 package password;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.crypto.BadPaddingException;
 import java.io.Serializable;
 import java.util.Objects;
+
+
 
 public class Password implements Serializable {
 	
@@ -64,26 +69,53 @@ public class Password implements Serializable {
 
 	public void decrypt(String key) {
 		if(encrypted) {
-			site = Encryptor.decrypt(site, key);
-			password = Encryptor.decrypt(password, key);
-			notes = Encryptor.decrypt(notes, key);
-			encrypted = false;
-		}
+				String newSite = Encryptor.decrypt(site, key);
+				String newPassword = Encryptor.decrypt(password, key);
+				String newNotes = Encryptor.decrypt(notes, key);
 
+				if(!(site.equals(newSite) && password.equals(newPassword) && notes.equals(newNotes))) {
+					site = newSite;
+					password = newPassword;
+					notes = newNotes;
+					encrypted = false;
+				}
+		}
 	}
 	
 	public void encrypt(String key) {
 		if(!encrypted) {
-			site = Encryptor.encrypt(site, key);
-			password = Encryptor.encrypt(password, key);
-			notes = Encryptor.encrypt(notes, key);
-			encrypted = true;
+			System.out.println("Encrypting password: " + deepToString());
+
+			String newSite = Encryptor.encrypt(site, key);
+			String newPassword = Encryptor.encrypt(password, key);
+			String newNotes = Encryptor.encrypt(notes, key);
+
+
+			if(!(site.equals(newSite) && password.equals(newPassword) && notes.equals(newNotes))) {
+				site = newSite;
+				password = newPassword;
+				notes = newNotes;
+				encrypted = true;
+			}
+
+
+
+			System.out.println("Finished encrypting pass: " + deepToString());
 		}
 	}
 	
 	public String toString() {
-
 		return name;
+	}
+
+	public String deepToString() {
+		String s = "";
+		s += "Name: " + name + "\n"
+				+ "Site: " + site + "\n"
+				+ "Pass: " + password + "\n"
+				+ "Notes: " + notes + "\n"
+				+ "Encrypted: " + encrypted + "\n";
+		return s;
 	}
 
 

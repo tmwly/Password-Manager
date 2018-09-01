@@ -43,7 +43,7 @@ public class Encryptor {
 	        return null;
 	    }
 	 
-	    public static String decrypt(String strToDecrypt, String secret) {
+	    public static String decrypt(String strToDecrypt, String secret) throws NullPointerException {
 	    	try {
 	    		setKey(secret);
 	    		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
@@ -52,7 +52,7 @@ public class Encryptor {
 	        } catch (Exception e) {
 	        	System.out.println("Error while decrypting: " + e.toString());
 	        }
-	    	return null;
+	    	return strToDecrypt;
 	    }
 	}
 	

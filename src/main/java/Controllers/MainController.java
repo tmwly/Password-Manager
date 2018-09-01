@@ -9,6 +9,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import password.Encryptor;
 import password.Password;
 
 import java.io.File;
@@ -39,11 +40,11 @@ public class MainController implements Initializable {
     Button newPasswordButton;
 
     @FXML
-    MenuItem changePassMenuItem;
-
+    MenuItem setClientKeyMenuItem;
+    @FXML
+    MenuItem changeDatabaseKeyMenuItem;
     @FXML
     MenuItem changeDatabaseMenuItem;
-
     @FXML
     MenuItem createDatabaseMenuItem;
 
@@ -55,17 +56,15 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         passwordListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-
             if (!(oldValue == null)) {
-
                 oldValue.encrypt(client.getKey());
             }
             currentPassword = newValue;
             setLabels(newValue);
-
         });
-        changePassMenuItem.setOnAction(event -> {
-            setPassword();
+
+        changeDatabaseKeyMenuItem.setOnAction(event -> {
+            changeDatabaseKey();
         });
 
         changeDatabaseMenuItem.setOnAction(event -> {
@@ -84,6 +83,9 @@ public class MainController implements Initializable {
             editPassword();
         });
 
+        setClientKeyMenuItem.setOnAction(event -> {
+            setClientKey();
+        });
 
 
     }
@@ -98,15 +100,19 @@ public class MainController implements Initializable {
         fileChooser.getExtensionFilters().add(extensionFilter);
 
         File file = fileChooser.showSaveDialog(stage);
-        try {
-            client.createDatabase(file);
-        } catch(MismatchedInputException e) {
-            System.out.println("FUcked it");
+
+        if(!(file == null)) {
+            try {
+                client.createDatabase(file);
+            } catch(MismatchedInputException e) {
+                System.out.println("FUcked it");
+            }
+            updateObservableList();
         }
 
-        updateObservableList();
 
-        System.out.println(file.getAbsolutePath());
+
+
 
     }
 
@@ -158,6 +164,11 @@ public class MainController implements Initializable {
     }
 
     public void setLabels(Password p) {
+//        String name = p.getName();
+//        String site = Encryptor.decrypt(p.getSite(), client.getKey());
+//        String password = Encryptor.decrypt(p.getPassword(), client.getKey());
+//        String notes = Encryptor.decrypt(p.getNotes(), client.getKey());
+
         p.decrypt(client.getKey());
         currentNameLabel.setText(p.getName());
         currentSiteLabel.setText(p.getSite());
@@ -165,11 +176,25 @@ public class MainController implements Initializable {
         currentNotesLabel.setText(p.getNotes());
     }
 
-    public void setPassword(){
+    public void changeDatabaseKey(){
         Stage stage = new Stage();
         stage.initOwner(primaryStage);
         stage.initModality(Modality.WINDOW_MODAL);
-        KeyChangerController.show(stage, client);
+        DatabaseKeyChangerController.show(stage, client);
+        updateObservableList();
+    }
+
+    public void setClientKey(){
+
+        if(!(currentPassword == null)) {
+            passwordListView.getSelectionModel().getSelectedItem().encrypt(client.getKey());
+        }
+
+        Stage stage = new Stage();
+        stage.initOwner(primaryStage);
+        stage.initModality(Modality.WINDOW_MODAL);
+        ClientKeyChangerController.show(stage,client);
+        updateObservableList();
     }
 
     public void editPassword(){
@@ -180,12 +205,12 @@ public class MainController implements Initializable {
             stage.initOwner(primaryStage);
             stage.initModality(Modality.WINDOW_MODAL);
             EditPasswordController.show(stage, client, currentPassword);
+        } else {
+            showError("Error", "Please select a password to edit");
         }
 
 
     }
-
-
 
 
 
@@ -198,31 +223,20 @@ public class MainController implements Initializable {
         }
         String key = client.getKey();
 
-        System.out.println(setFile);
-
         if(key.equals("") && !setFile) {
-            showErrorDialog("Error", "Please set a key and Database before adding a new password");
+            showError("Error", "Please set a key and Database before adding a new password");
         } else if(key.equals("")) {
-            showErrorDialog("Error", "Please set a key before adding a new password");
+            showError("Error", "Please set a key before adding a new password");
         } else if(!setFile) {
-            showErrorDialog("Error", "Please set a database before adding a new password");
+            showError("Error", "Please set a database before adding a new password");
         } else {
             Stage stage = new Stage();
             stage.initOwner(primaryStage);
             stage.initModality(Modality.WINDOW_MODAL);
             NewPasswordController.show(stage, client);
         }
-
-
     }
 
-    private void showErrorDialog(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setContentText(message);
-
-        alert.showAndWait();
-    }
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;

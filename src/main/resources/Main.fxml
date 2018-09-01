@@ -17,14 +17,15 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="General">
+          <Menu mnemonicParsing="false" text="Key">
                <items>
-                  <MenuItem fx:id="changePassMenuItem" mnemonicParsing="false" text="Change Key" />
+                  <MenuItem fx:id="setClientKeyMenuItem" mnemonicParsing="false" text="Set client key" />
                </items></Menu>
             <Menu mnemonicParsing="false" text="Database">
                <items>
                   <MenuItem fx:id="createDatabaseMenuItem" mnemonicParsing="false" text="Create Database" />
                   <MenuItem fx:id="changeDatabaseMenuItem" mnemonicParsing="false" text="Change Database" />
+                  <MenuItem fx:id="changeDatabaseKeyMenuItem" mnemonicParsing="false" text="Change current database key" />
                </items>
             </Menu>
         </menus>
@@ -54,25 +55,25 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="800.0">
                      <children>
-                        <Label text="Name" />
+                        <Label text="Name:" />
                         <Label fx:id="currentNameLabel" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="800.0" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Site" />
+                        <Label text="Site:" />
                         <Label fx:id="currentSiteLabel" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="800.0" GridPane.rowIndex="2">
                      <children>
-                        <Label text="Password" />
+                        <Label text="Password:" />
                         <Label fx:id="currentPasswordLabel" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="800.0" GridPane.rowIndex="3">
                      <children>
-                        <Label text="Notes" />
+                        <Label text="Notes:" />
                         <Label fx:id="currentNotesLabel" />
                      </children>
                   </VBox>
@@ -84,8 +85,8 @@
    <bottom>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button fx:id="editPasswordButton" mnemonicParsing="false" text="Edit" />
             <Button fx:id="newPasswordButton" mnemonicParsing="false" text="New Password" />
+          <Button fx:id="editPasswordButton" mnemonicParsing="false" text="Edit" />
         </items>
       </ToolBar>
    </bottom>

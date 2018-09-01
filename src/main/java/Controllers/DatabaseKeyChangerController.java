@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class KeyChangerController implements Initializable {
+public class DatabaseKeyChangerController implements Initializable {
 
     @FXML
     public Label oldPasswordLabel;
@@ -65,7 +65,7 @@ public class KeyChangerController implements Initializable {
     }
 
     public static void show(Stage stage, Client client){
-        FXMLLoader loader = new FXMLLoader(Window.class.getResource("/KeyChanger.fxml"));
+        FXMLLoader loader = new FXMLLoader(Window.class.getResource("/DatabaseKeyChanger.fxml"));
         Parent parent = null;
         try {
             parent = loader.load();
@@ -73,7 +73,7 @@ public class KeyChangerController implements Initializable {
             e.printStackTrace();
         }
         Scene scene = new Scene(parent);
-        KeyChangerController controller = loader.getController();
+        DatabaseKeyChangerController controller = loader.getController();
         controller.setClient(client);
         controller.setStage(stage);
         stage.setScene(scene);
@@ -89,7 +89,7 @@ public class KeyChangerController implements Initializable {
             String newKey2 = repeatNewPasswordTextField.getText();
 
             if (newKey.equals(newKey2)){
-                client.changeKey(newKey);
+                client.changeDatabaseKey(newKey);
                 stage.close();
             } else {
                 keyChangeErrorLabel.setText("Please ensure the two passwords match");
