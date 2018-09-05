@@ -60,6 +60,7 @@ public class MainController implements Initializable {
                 oldValue.encrypt(client.getKey());
             }
             currentPassword = newValue;
+
             setLabels(newValue);
         });
 
@@ -110,10 +111,6 @@ public class MainController implements Initializable {
             updateObservableList();
         }
 
-
-
-
-
     }
 
     private void changeDatabase() {
@@ -124,8 +121,6 @@ public class MainController implements Initializable {
         fileChooser.setTitle("Open database json file");
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Json files", "*.json" ) ;
         fileChooser.getExtensionFilters().add(extensionFilter);
-        //fileChooser.showOpenDialog(stage);
-
 
         File file = fileChooser.showOpenDialog(stage);
 
@@ -164,16 +159,24 @@ public class MainController implements Initializable {
     }
 
     public void setLabels(Password p) {
-//        String name = p.getName();
-//        String site = Encryptor.decrypt(p.getSite(), client.getKey());
-//        String password = Encryptor.decrypt(p.getPassword(), client.getKey());
-//        String notes = Encryptor.decrypt(p.getNotes(), client.getKey());
 
-        p.decrypt(client.getKey());
-        currentNameLabel.setText(p.getName());
-        currentSiteLabel.setText(p.getSite());
-        currentPasswordLabel.setText(p.getPassword());
-        currentNotesLabel.setText(p.getNotes());
+        if(p == null) {
+            System.out.println("fucked it");
+        } else {
+            System.out.println(p.deepToString());
+        }
+
+
+        String name = p.getName();
+        String site = Encryptor.decrypt(p.getSite(), client.getKey());
+        String password = Encryptor.decrypt(p.getPassword(), client.getKey());
+        String notes = Encryptor.decrypt(p.getNotes(), client.getKey());
+
+        //p.decrypt(client.getKey());
+        currentNameLabel.setText(name);
+        currentSiteLabel.setText(site);
+        currentPasswordLabel.setText(password);
+        currentNotesLabel.setText(notes);
     }
 
     public void changeDatabaseKey(){
@@ -201,15 +204,16 @@ public class MainController implements Initializable {
 
         if(!(currentPassword == null)) {
 
+            Password p = currentPassword.decryptAndReturn(client.getKey());
+
             Stage stage = new Stage();
             stage.initOwner(primaryStage);
             stage.initModality(Modality.WINDOW_MODAL);
-            EditPasswordController.show(stage, client, currentPassword);
+
+            EditPasswordController.show(stage, client, p);
         } else {
             showError("Error", "Please select a password to edit");
         }
-
-
     }
 
 

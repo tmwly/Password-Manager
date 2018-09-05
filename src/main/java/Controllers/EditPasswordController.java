@@ -54,6 +54,7 @@ public class EditPasswordController implements Initializable {
 
         if(!(name.equals("") || password.equals(""))){
             Password newPass = new Password(name, site, passwordStr, notes);
+            password.encrypt(client.getKey());
             client.overwritePassword(password, newPass);
             stage.close();
         } else{
@@ -92,6 +93,13 @@ public class EditPasswordController implements Initializable {
             e.printStackTrace();
         }
         password = p;
+
+        if(password == null) {
+            System.out.println("SHOW PASSWORD IS NULL");
+        } else {
+            System.out.println(password.deepToString());
+        }
+
         Scene scene = new Scene(parent);
         EditPasswordController controller = loader.getController();
         controller.setClient(client);

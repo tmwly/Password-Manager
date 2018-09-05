@@ -67,6 +67,23 @@ public class Password implements Serializable {
 		return encrypted;
 	}
 
+
+	public Password decryptAndReturn(String key) {
+		if(encrypted) {
+			String newSite = Encryptor.decrypt(site, key);
+			String newPassword = Encryptor.decrypt(password, key);
+			String newNotes = Encryptor.decrypt(notes, key);
+
+			if(!(site.equals(newSite) && password.equals(newPassword) && notes.equals(newNotes))) {
+
+				Password p = new Password(name, newSite, newPassword, newNotes);
+				return p;
+			}
+		}
+		return null;
+	}
+
+
 	public void decrypt(String key) {
 		if(encrypted) {
 				String newSite = Encryptor.decrypt(site, key);
