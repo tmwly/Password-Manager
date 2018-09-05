@@ -61,7 +61,11 @@ public class MainController implements Initializable {
             }
             currentPassword = newValue;
 
-            setLabels(newValue);
+
+            if(!(newValue == null)) {
+                setLabels(newValue);
+            }
+
         });
 
         changeDatabaseKeyMenuItem.setOnAction(event -> {
@@ -126,7 +130,6 @@ public class MainController implements Initializable {
 
         if(file != null) {
             String s = file.getAbsolutePath();
-            System.out.println(s);
             try {
                 client.setDatabase(s);
                 updateObservableList();
@@ -160,11 +163,11 @@ public class MainController implements Initializable {
 
     public void setLabels(Password p) {
 
-        if(p == null) {
-            System.out.println("fucked it");
-        } else {
-            System.out.println(p.deepToString());
-        }
+//        if(p == null) {
+//            System.out.println("fucked it password is null lol");
+//        } else {
+//            System.out.println(p.deepToString());
+//        }
 
 
         String name = p.getName();
@@ -192,6 +195,9 @@ public class MainController implements Initializable {
         if(!(currentPassword == null)) {
             passwordListView.getSelectionModel().getSelectedItem().encrypt(client.getKey());
         }
+
+
+
 
         Stage stage = new Stage();
         stage.initOwner(primaryStage);

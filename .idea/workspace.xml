@@ -8,12 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9c2d0682-d2ce-4c77-bfc5-74fab75c9f3f" name="Default" comment="Version 0.9 doing some tings - gonna change how passwords are managed to avoid encryption probs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/EditPasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/EditPasswordController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/password/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/password/Password.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/KeyChanger.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/password/Encryptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/password/Encryptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/EditPasswordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/EditPasswordController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -53,7 +50,7 @@
           <entry key="echo" value="1" />
           <entry key="fxml" value="20" />
           <entry key="iml" value="1" />
-          <entry key="java" value="120" />
+          <entry key="java" value="121" />
           <entry key="properties" value="1" />
           <entry key="xml" value="4" />
         </counts>
@@ -63,7 +60,7 @@
           <entry key="CLASS" value="4" />
           <entry key="CSS" value="2" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="121" />
+          <entry key="JAVA" value="122" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Properties" value="1" />
           <entry key="XML" value="24" />
@@ -74,7 +71,7 @@
           <entry key="css" value="7" />
           <entry key="dummy" value="3" />
           <entry key="fxml" value="149" />
-          <entry key="java" value="8406" />
+          <entry key="java" value="8466" />
           <entry key="txt" value="233" />
           <entry key="xml" value="172" />
         </counts>
@@ -82,7 +79,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="7" />
-          <entry key="JAVA" value="8406" />
+          <entry key="JAVA" value="8466" />
           <entry key="PLAIN_TEXT" value="236" />
           <entry key="XML" value="321" />
         </counts>
@@ -94,24 +91,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="160" selection-start-line="160" selection-end-line="160" />
+            <state relative-caret-position="121">
+              <caret line="165" column="10" selection-start-line="165" selection-start-column="10" selection-end-line="169" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4134#4135#0" expanded="true" />
-                <element signature="e#4207#4208#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/EditPasswordController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="99" column="54" selection-start-line="99" selection-start-column="54" selection-end-line="99" selection-end-column="54" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#4143#4144#0" expanded="true" />
+                <element signature="e#4216#4217#0" expanded="true" />
+                <element signature="e#6939#6940#0" expanded="true" />
+                <element signature="e#6987#6988#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -135,7 +122,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ClientKeyChangerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
+            <state relative-caret-position="138">
               <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -166,6 +153,9 @@
       <find>showerrordialo</find>
       <find>location</find>
       <find>setlabels</find>
+      <find>fucked</find>
+      <find>fuc</find>
+      <find>system</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -448,7 +438,7 @@
       <workItem from="1535292739439" duration="147000" />
       <workItem from="1535395245189" duration="609000" />
       <workItem from="1535633565914" duration="26806000" />
-      <workItem from="1536179812396" duration="3395000" />
+      <workItem from="1536179812396" duration="5586000" />
     </task>
     <task id="LOCAL-00001" summary="Got gui working with adding passwords&#10;can import json if correct key">
       <created>1535050070913</created>
@@ -507,7 +497,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61809000" />
+    <option name="totallyTimeSpent" value="64000000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -662,16 +652,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="121" selection-start-line="9" selection-start-column="121" selection-end-line="9" selection-end-column="121" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/DatabaseKeyChangerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="91" column="37" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -860,16 +840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ClientKeyChangerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/password/Password.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -893,14 +863,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/MainController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/DatabaseKeyChangerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="160" selection-start-line="160" selection-end-line="160" />
+        <state relative-caret-position="408">
+          <caret line="91" column="37" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4134#4135#0" expanded="true" />
-            <element signature="e#4207#4208#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ClientKeyChangerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="165" column="10" selection-start-line="165" selection-start-column="10" selection-end-line="169" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4143#4144#0" expanded="true" />
+            <element signature="e#4216#4217#0" expanded="true" />
+            <element signature="e#6939#6940#0" expanded="true" />
+            <element signature="e#6987#6988#0" expanded="true" />
           </folding>
         </state>
       </provider>
