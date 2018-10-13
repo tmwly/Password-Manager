@@ -1,0 +1,1 @@
+Compile to jar with mvn clean jfx:jar  -Dmaven.test.skip=true
