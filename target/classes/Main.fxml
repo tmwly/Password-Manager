@@ -86,7 +86,8 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
             <Button fx:id="newPasswordButton" mnemonicParsing="false" text="New Password" />
-          <Button fx:id="editPasswordButton" mnemonicParsing="false" text="Edit" />
+            <Button fx:id="editPasswordButton" mnemonicParsing="false" text="Edit" />
+            <Button fx:id="deletePasswordButton" mnemonicParsing="false" text="Delete" />
         </items>
       </ToolBar>
    </bottom>

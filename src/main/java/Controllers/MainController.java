@@ -50,6 +50,9 @@ public class MainController implements Initializable {
 
     @FXML
     Button editPasswordButton;
+    @FXML
+    Button deletePasswordButton;
+
 
     Stage primaryStage;
 
@@ -86,6 +89,10 @@ public class MainController implements Initializable {
 
         editPasswordButton.setOnAction(event -> {
             editPassword();
+        });
+
+        deletePasswordButton.setOnAction(event -> {
+            deletePassword();
         });
 
         setClientKeyMenuItem.setOnAction(event -> {
@@ -163,23 +170,22 @@ public class MainController implements Initializable {
 
     public void setLabels(Password p) {
 
-//        if(p == null) {
-//            System.out.println("fucked it password is null lol");
-//        } else {
-//            System.out.println(p.deepToString());
-//        }
-
-
         String name = p.getName();
         String site = Encryptor.decrypt(p.getSite(), client.getKey());
         String password = Encryptor.decrypt(p.getPassword(), client.getKey());
         String notes = Encryptor.decrypt(p.getNotes(), client.getKey());
 
-        //p.decrypt(client.getKey());
         currentNameLabel.setText(name);
         currentSiteLabel.setText(site);
         currentPasswordLabel.setText(password);
         currentNotesLabel.setText(notes);
+    }
+
+    public void clearLabels() {
+        currentNameLabel.setText("");
+        currentSiteLabel.setText("");
+        currentPasswordLabel.setText("");
+        currentNotesLabel.setText("");
     }
 
     public void changeDatabaseKey(){
@@ -205,6 +211,24 @@ public class MainController implements Initializable {
         ClientKeyChangerController.show(stage,client);
         updateObservableList();
     }
+
+    //TODO make gui for this and test it actually works
+    // should it prompt?
+    public void deletePassword() {
+
+        if(!(currentPassword == null)) {
+
+
+            client.deletePassword(currentPassword);
+
+//            get labels to reset proper
+
+
+        }  else {
+            showError("Error", "Please select a password to delete");
+        }
+    }
+
 
     public void editPassword(){
 

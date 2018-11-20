@@ -16,6 +16,7 @@ import view.Window;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 
 public class EditPasswordController implements Initializable {
@@ -68,7 +69,6 @@ public class EditPasswordController implements Initializable {
     }
 
     public void setClient(Client client) {
-
 
         this.client = client;
         //Set existing values

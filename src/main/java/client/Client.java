@@ -55,8 +55,12 @@ public class Client {
 
 
 	public void deletePassword(Password p) {
+
+		//TODO get this working with just deleting, not editing
+		System.out.println(p.toString());
 		getObservableList().remove(p);
 		passwords.writeDB();
+		refreshObservableList();
 	}
 
 
@@ -101,6 +105,7 @@ public class Client {
 	public void createDatabase(File file) throws MismatchedInputException{
 		passwords.createDatabase(file);
 	}
+
 
 	public void overwritePassword(Password oldPass, Password newPass) {
 		deletePassword(oldPass);
